@@ -95,7 +95,7 @@ SELECT customers.customer_zip_code_prefix,
     AVG(reviews.review_score) AS mean_score
 FROM filtered_reviews AS reviews
     LEFT JOIN orders_with_min_date AS orders ON orders.order_id = reviews.order_id
-    LEFT JOIN customers ON orders.customer_id = customers.customer_id
+    LEFT JOIN customers ON orders.customer_id = customers.customer_id -- I think I should use customer_unique_id here instead (which can appear several times in the table)
 WHERE reviews.review_creation_date > orders.min_date
     AND orders.order_status != "canceled"
 GROUP BY customers.customer_zip_code_prefix
